@@ -1,0 +1,117 @@
+import java.util.Scanner;
+
+public class ArrayADT{
+	private int[] array;
+	private int size;
+	
+	public ArrayADT(int capacity){
+		 array = new int[capacity];
+		size = 0;
+	}
+	
+	 void insert(int index,int value){
+		
+		if(index<0 || index>array.length-1){
+			//System.out.println("index is not valid");	
+			throw new IndexOutOfBoundsException("index is not valid");
+		}
+		else if(size == array.length){
+			System.out.println("array is full");
+		}
+		else{
+			for(int i = size -1 ;i>=index;i--){
+				array[i+1]=array[i];
+			}
+			array[index] = value;
+			size++;
+		}
+		
+		for(int x : array){
+			System.out.print(x+ " ");
+		}
+		
+		System.out.println();
+	}
+	
+	
+	void delete(int index){
+		if(index<0 || index>array.length-1){
+			//System.out.println("index is not valid");	
+			throw new IndexOutOfBoundsException("index is not valid");
+		}
+		
+		else if(0 == size){
+			System.out.println("array is empty");
+		}
+		else{
+			for(int i = index;i<size-1;i++){
+				array[i]=array[i+1];
+			}
+			array[size-1]=0;
+			size--;
+		}
+		
+		for(int i=0;i<size;i++){
+			System.out.print(array[i]+" ");
+		}
+		
+		System.out.println();
+		
+	}
+	
+	
+	public int get(int index){
+		if(index<0 || index>array.length-1){
+			//System.out.println("index is not valid");	
+			throw new IndexOutOfBoundsException("index is not valid");
+		}
+		return array[index];
+	}
+	
+	public void modify(int index,int value){
+		if(index<0 || index>array.length-1){
+			//System.out.println("index is not valid");	
+			throw new IndexOutOfBoundsException("index is not valid");
+		}
+		
+		array[index]=value;
+		
+		for(int i=0;i<size;i++){
+			System.out.print(array[i]+" ");
+		}
+		
+		System.out.println();
+	}
+	
+	void search(int value){
+		int count =0;
+		for(int i=0;i<size;i++){
+			if(array[i]==value){
+				System.out.println("Element is found");
+				System.out.println("Element index is:"+i);
+				count++;
+				break;
+			}
+		}
+		if(count!=0){
+			System.out.println("Element is not found");
+		}
+	}
+	
+	public static void main(String args[]){
+		Scanner input = new Scanner(System.in);
+		
+		ArrayADT arr = new ArrayADT(5);
+		
+		arr.insert(0,5);
+		arr.insert(1,6);
+		arr.insert(2,7);
+		arr.insert(3,8);
+		arr.insert(4,9);
+		arr.delete(2);
+		System.out.println(arr.get(2));
+		arr.modify(2,10);
+		arr.search(10);
+		arr.search(11);
+	}
+}
